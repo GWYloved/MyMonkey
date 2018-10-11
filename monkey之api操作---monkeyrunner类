@@ -1,0 +1,103 @@
+# 连接手机
+
+```
+from com.android.monkeyrunner import MonkeyRunner
+device = MonkeyRunner.waitForConnection()
+```
+
+注释：等待连接设备，与模拟器链接，返回monkeydevice对象，代表链接的设备。没有报错的话说明连接成功。
+参数：timeout：超时时间，单位秒，浮点数。默认是无限期等待。
+          deviceId：指定的设备名称。默认为当前的设备（手机有限，比如手机通过usb线链接到pc、其次为模拟器）。
+实例：默认连接：device=MonkeyRunner.waitForConnection()
+           参数连接：device=mr.waitForConnection(1.0,'emulator-5554')
+
+# 安装软件包
+
+```
+from com.android.monkeyrunner import MonkeyRunner
+device.installPackage('myproject/bin/MyApplication.apk') 
+```
+注释： #参数是相对或绝对APK路径 路径级别用“/”，不能用“\”
+参数：path：被安装到设备上的apk包在电脑上的文件路径
+实例：device.installPackage('myproject/bin/MyApplication.apk') 
+
+# 启动app（activity）
+
+```
+from com.android.monkeyrunner import MonkeyRunner
+device.startActivity(component="your.www.com/your.www.com.TestActivity") 
+```
+注释：启动任意的Activity，此时可以向模拟器发送如按键、滚动、截图、存储等操作了。 执行一个adb shell命令，并返回结果，如果有的话
+device.shell("...")
+参数：uri - The URI for the Intent.
+           action - The action for the Intent.
+           data - The data URI for the Intent
+           mimetype - The mime type for the Intent.
+           categories - A Python iterable containing the category names for the Intent.
+           extras - A dictionary of extras to add to the Intent. Types of these extras are inferred from the python types of the values.
+           component - The component of the Intent.
+           flags - An iterable of flags for the Intent.All arguments are optional. The default value for each argument is null.
+实例：device.startActivity(component="your.www.com/your.www.com.TestActivity") 
+           device.startActivity(component="your.www.com/.TestActivity") 
+
+# 暂停操作
+
+```
+from com.android.monkeyrunner import MonkeyRunner
+MonkeyRunner.sleep(秒数，浮点数)
+```
+
+# 截图
+
+```
+from com.android.monkeyrunner import MonkeyRunner,MonkeyImage
+result = device.takeSnapshot()
+```
+注释：获取设备的屏蔽缓冲区，产生了整个显示器的屏蔽捕获。（截图）
+参数：无
+实例：result=device.takeSnapshot()
+    返回一个MonkeyImage对象（点阵图包装），我们可以用一下命令将图保存到文件
+    result.writeToFile('takeSnapshot\\result1.png','png')
+
+# 保存到文件
+
+```
+from com.android.monkeyrunner import MonkeyRunner,MonkeyImage
+result = device.takeSnapshot()
+result.writeToFile('takeSnapshot\\result1.png','png')
+```
+注释：将截图保存到文件 写成功返回true，否则返回false
+参数：path：输出文件名和路径
+          format：目标格式
+实例：result.writeToFile('takeSnapshot\\result1.png','png')
+
+# 输入字符
+
+```
+from com.android.monkeyrunner import MonkeyRunner
+device.type（‘字符串’）
+```
+注释：键盘上的类型指定字符串，这相当于要求字符中按（键码，DOWN_AND_UP）字符串发送到键盘
+参数：message：要键入的字符串
+实例：device.type（‘字符串’）
+
+# 唤醒设备
+
+```
+device.wake()
+```
+
+# 重启
+
+```
+device.reboot()
+```
+
+# 弹个框让用户确认
+
+```
+MonkeyRunner.alert(string message,string title,string okTile)
+```
+
+
+
