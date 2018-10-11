@@ -13,3 +13,4 @@
 
 解决方法：
 为了防止错误，存了一份放到了github上面
+之后使用的时候，要安装了androidstudio，借助这个里面的sdk来使用，或者下载一份完整的build/tools

@@ -11,6 +11,34 @@ device = MonkeyRunner.waitForConnection()
 实例：默认连接：device=MonkeyRunner.waitForConnection()
            参数连接：device=mr.waitForConnection(1.0,'emulator-5554')
 
+# 部分按键操作
+```
+device.press('KEYCODE_HOME', MonkeyDevice.DOWN_AND_UP)
+device.touch(100,100,MonkeyDevice.DOWN_AND_UP)
+```
+注释：类似上面这种，press()操作和touch()操作
+参数：press的第一个参数是keyevent，这个可以在https://developer.android.com/reference/android/view/KeyEvent中查找
+	 /*
+	 menu键：KEYCODE_MENU
+	home键：KEYCODE_HOME
+	back键：KEYCODE_BACK
+	search键：KEYCODE_SEARCH
+	call键：KEYCODE_CALL
+	end键：KEYCODE_ENDCALL
+	上音量键：KEYCODE_VOLUME_UP
+	下音量键：KEYCODE_VOLUME_DOWN
+	power键：KEYCODE_POWER
+	camera键：KEYCODE_CAMERA
+	 */
+	 press的第二个参数是操作类型，有三种MonkeyDevice.DOWN，MonkeyDevice.DOWN_AND_UP， MonkeyDevice.UP
+	 对于touch也是一样，不过touch的第一个参数是触摸的X点，第二个参数是触摸的Y点
+
+```
+device.drag((100,100),(200,200),1000,5)
+```
+drag操作就是滑动，第一个是开始的坐标，第二个是截止的坐标，第三个是持续时间，第四个是这个过程的力度
+drag貌似是唯一一个实现长按的方法
+
 # 安装软件包
 
 ```
@@ -20,6 +48,12 @@ device.installPackage('myproject/bin/MyApplication.apk')
 注释： #参数是相对或绝对APK路径 路径级别用“/”，不能用“\”
 参数：path：被安装到设备上的apk包在电脑上的文件路径
 实例：device.installPackage('myproject/bin/MyApplication.apk') 
+
+# 删除软件包
+
+```
+device.removePackage('myproject/bin/MyApplication.apk')
+```
 
 # 启动app（activity）
 
@@ -39,37 +73,6 @@ device.shell("...")
            flags - An iterable of flags for the Intent.All arguments are optional. The default value for each argument is null.
 实例：device.startActivity(component="your.www.com/your.www.com.TestActivity") 
            device.startActivity(component="your.www.com/.TestActivity") 
-
-# 暂停操作
-
-```
-from com.android.monkeyrunner import MonkeyRunner
-MonkeyRunner.sleep(秒数，浮点数)
-```
-
-# 截图
-
-```
-from com.android.monkeyrunner import MonkeyRunner,MonkeyImage
-result = device.takeSnapshot()
-```
-注释：获取设备的屏蔽缓冲区，产生了整个显示器的屏蔽捕获。（截图）
-参数：无
-实例：result=device.takeSnapshot()
-    返回一个MonkeyImage对象（点阵图包装），我们可以用一下命令将图保存到文件
-    result.writeToFile('takeSnapshot\\result1.png','png')
-
-# 保存到文件
-
-```
-from com.android.monkeyrunner import MonkeyRunner,MonkeyImage
-result = device.takeSnapshot()
-result.writeToFile('takeSnapshot\\result1.png','png')
-```
-注释：将截图保存到文件 写成功返回true，否则返回false
-参数：path：输出文件名和路径
-          format：目标格式
-实例：result.writeToFile('takeSnapshot\\result1.png','png')
 
 # 输入字符
 
@@ -93,11 +96,13 @@ device.wake()
 device.reboot()
 ```
 
-# 弹个框让用户确认
+# 获取一些系统参数
+
+就两个方法，getProperty()和getSystemProperty()，这两个需要查询的参数都可以通过adb shell getprop获取到
+
+# 运行设备指定的包
 
 ```
-MonkeyRunner.alert(string message,string title,string okTile)
+device.instrument(String className, dictionary args)
 ```
-
-
-
+这个方法基本上就是用于处理包名重复的问题

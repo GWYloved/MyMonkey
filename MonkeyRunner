@@ -1,0 +1,12 @@
+# 暂停操作
+
+```
+from com.android.monkeyrunner import MonkeyRunner
+MonkeyRunner.sleep(秒数，浮点数)
+```
+
+# 弹个框让用户确认
+
+```
+MonkeyRunner.alert(string message,string title,string okTile)
+```
