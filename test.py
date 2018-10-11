@@ -3,10 +3,18 @@
 import sys
 
 from com.android.monkeyrunner import MonkeyRunner,MonkeyDevice,MonkeyImage
+from com.android.monkeyrunner.easy import EasyMonkeyDevice
+from com.android.monkeyrunner.easy import By
 
 device = MonkeyRunner.waitForConnection()
 
-device.press('KEYCODE_HOME', MonkeyDevice.DOWN_AND_UP)
+easyDevice = EasyMonkeyDevice(device)
+
+# device.press('KEYCODE_HOME', MonkeyDevice.DOWN_AND_UP)
+
+# id = By.id(ad_small_tab_ly)
+
+# easyDevice.touch(id, )
 
 # selectString = MonkeyRunner.alert(u"我日",u"riri",u"jeje")
 
@@ -22,6 +30,11 @@ device.press('KEYCODE_HOME', MonkeyDevice.DOWN_AND_UP)
 
 # MonkeyRunner.help("text")
 
-inputString = MonkeyRunner.input("message","initialvalue","title","oktitle","canceltitle")
+# inputString = MonkeyRunner.input("message","initialvalue","title","oktitle","canceltitle")
 
-print inputString.decode("utf-8")
+# print inputString.decode("utf-8")
+
+if not easyDevice.visible(By.id('id/iftbl_Title')):
+    raise Error('Could not find the "all apps" button')
+
+print "Location of element:", easy_device.locate(By.id('id/iftbl_Title'))
