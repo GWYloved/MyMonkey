@@ -6,7 +6,7 @@ from com.android.monkeyrunner import MonkeyRunner,MonkeyDevice,MonkeyImage
 from com.android.monkeyrunner.easy import EasyMonkeyDevice
 from com.android.monkeyrunner.easy import By
 
-device = MonkeyRunner.waitForConnection()
+device = MonkeyRunner.waitForConnection(10.0,"127.0.0.1:21503")
 
 easyDevice = EasyMonkeyDevice(device)
 
@@ -34,7 +34,40 @@ easyDevice = EasyMonkeyDevice(device)
 
 # print inputString.decode("utf-8")
 
-if not easyDevice.visible(By.id('id/iftbl_Title')):
-    raise Error('Could not find the "all apps" button')
+# if not easyDevice.visible(By.id('id/comment_cnt')):
+#     raise Error('Could not find the "comment_cnt" button')
 
-print "Location of element:", easy_device.locate(By.id('id/iftbl_Title'))
+# print "Location of element:", easyDevice.locate(By.id('id/comment_cnt'))
+
+# easyDevice.touch(By.id('id/comment_cnt'),MonkeyDevice.DOWN_AND_UP)
+
+# if not easyDevice.visible(By.id('id/comment_ll')):
+#     raise Error('Could not find the "comment_ll" button')
+
+# print "Location of element:", easyDevice.locate(By.id('id/comment_ll'))
+
+# easyDevice.touch(By.id('id/comment_ll'),MonkeyDevice.DOWN_AND_UP)
+
+# MonkeyRunner.sleep(1)
+
+t = By.id('id/content')
+
+if not easyDevice.visible(t):
+    raise Error('Could not find the "content" button')
+
+# print "Location of element:", easyDevice.locate(t)
+
+# easyDevice.touch(By.id('id/content'),MonkeyDevice.DOWN_AND_UP)
+
+# easyDevice.type(By.id('id/content'),'new')
+
+device.type("hfdjahsdfkjahsf")
+
+MonkeyRunner.sleep(1)
+
+# if not easyDevice.visible(By.id('id/confirm')):
+#     raise Error('Could not find the "confirm" button')
+
+# print "Location of element:", easyDevice.locate(By.id('id/confirm'))
+
+# easyDevice.touch(By.id('id/confirm'),MonkeyDevice.DOWN_AND_UP)
