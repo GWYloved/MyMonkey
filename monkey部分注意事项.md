@@ -19,3 +19,21 @@
 
 解决方法：
 在命令行中运行chcp 437切换一下即可
+
+4.viewserver启动
+
+viewserver需要在可以root的手机上面才有可能启动。
+切记执行命令之前先remount一下
+
+检查是否启动：adb shell service call window 3 返回值为Result: Parcel(00000000 00000000 '........')"为未启动
+
+打开viewserver方法：adb shell service call window 1 i32 4939
+关闭viewserver方法：adb shell service call window 2 i32 4939
+
+5.处理unicode问题
+
+text.encode('utf-8')
+
+6.adb端口问题
+
+ADB是服务通过扫描奇数端口5555 至5585查找  Android模拟器或设备。而且每个设备占用2个端口，偶数端口Android设备控制台，奇数端口Android与ADB的连接。
