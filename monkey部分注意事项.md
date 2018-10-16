@@ -37,3 +37,7 @@ text.encode('utf-8')
 6.adb端口问题
 
 ADB是服务通过扫描奇数端口5555 至5585查找  Android模拟器或设备。而且每个设备占用2个端口，偶数端口Android设备控制台，奇数端口Android与ADB的连接。
+
+7.adb无法输入中文问题
+
+安装adbkeyboard即可
